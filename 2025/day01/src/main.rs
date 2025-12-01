@@ -32,28 +32,26 @@ impl Rotation {
         match self.direction {
             Direction::L => {
                 let total_rotation = position.0 - self.rotate_by;
-                let passing_zero_count = (total_rotation.div_euclid(100)).abs() as usize;
                 let rotation_after_wrapping = total_rotation.rem_euclid(100);
                 let next_position = if rotation_after_wrapping < 0 {
                     100 + rotation_after_wrapping
                 } else {
                     rotation_after_wrapping
                 };
+                let passing_zero_count = (total_rotation.div_euclid(100)).abs() as usize - {
+                    if position.0 == 0 { 1 } else { 0 }
+                };
 
-                (
-                    Position(next_position),
-                    passing_zero_count - { if position.0 == 0 { 1 } else { 0 } },
-                )
+                (Position(next_position), passing_zero_count)
             }
             Direction::R => {
                 let total_rotation = position.0 + self.rotate_by;
-                let passing_zero_count = total_rotation.div_euclid(100) as usize;
                 let next_position = total_rotation.rem_euclid(100);
+                let passing_zero_count = total_rotation.div_euclid(100) as usize - {
+                    if next_position == 0 { 1 } else { 0 }
+                };
 
-                (
-                    Position(next_position),
-                    passing_zero_count - { if next_position == 0 { 1 } else { 0 } },
-                )
+                (Position(next_position), passing_zero_count)
             }
         }
     }
