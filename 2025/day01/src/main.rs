@@ -38,7 +38,7 @@ impl Rotation {
                 } else {
                     rotation_after_wrapping
                 };
-                let passing_zero_count = (total_rotation.div_euclid(100)).abs() as usize - {
+                let passing_zero_count = (total_rotation.div_euclid(100)).unsigned_abs() as usize - {
                     if position.0 == 0 { 1 } else { 0 }
                 };
 
