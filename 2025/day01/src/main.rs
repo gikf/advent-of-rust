@@ -38,9 +38,8 @@ impl Rotation {
                 } else {
                     rotation_after_wrapping
                 };
-                let passing_zero_count = (total_rotation.div_euclid(100)).unsigned_abs() as usize - {
-                    if position.0 == 0 { 1 } else { 0 }
-                };
+                let passing_zero_count = (total_rotation.div_euclid(100)).unsigned_abs() as usize
+                    - { if position.0 == 0 { 1 } else { 0 } };
 
                 (Position(next_position), passing_zero_count)
             }
