@@ -118,10 +118,7 @@ fn count_timelines(diagram: &[Vec<Field>]) -> usize {
 
     timelines[last_row] = timelines[last_row].iter().map(|_| 1).collect();
 
-    for (row_no, row) in (0..last_row)
-        .rev()
-        .zip(diagram[..last_row].iter().rev())
-    {
+    for (row_no, row) in (0..last_row).rev().zip(diagram[..last_row].iter().rev()) {
         for (col_no, field) in row.iter().enumerate() {
             match field {
                 Field::Beam | Field::Entrance => {
