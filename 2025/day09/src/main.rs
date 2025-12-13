@@ -132,7 +132,10 @@ fn main() {
 
     let areas = get_areas(&tiles);
     println!("Step 2");
-    println!("Largest rectangle using only red and green tiles {:?}", largest_contained_rectangle(&areas, &tiles).unwrap());
+    println!(
+        "Largest rectangle using only red and green tiles {:?}",
+        largest_contained_rectangle(&areas, &tiles).unwrap()
+    );
 }
 
 fn parse_tiles(input: &str) -> Vec<Tile> {
@@ -169,7 +172,10 @@ fn largest_rectangle_area(tiles: &[Tile]) -> isize {
 fn largest_contained_rectangle(areas: &[(isize, (&Tile, &Tile))], tiles: &[Tile]) -> Option<isize> {
     let (compacted, compacted_x, compacted_y) = compact_tiles(tiles);
 
-    let mut polygon = Polygon { tiles: &compacted, _calculated: HashMap::new() };
+    let mut polygon = Polygon {
+        tiles: &compacted,
+        _calculated: HashMap::new(),
+    };
 
     let areas_compacted = areas.iter().map(|(area, (a, b))| {
         let compacted_a = Tile {
