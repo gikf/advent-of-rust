@@ -125,7 +125,7 @@ fn parse_input_scaled(input: &str) -> (Vec<Vec<FieldScaled>>, Vec<Move>) {
     let mut lines = input.lines();
     let mut map = Vec::new();
 
-    for line in lines.by_ref().take_while(|line|!line.is_empty()) {
+    for line in lines.by_ref().take_while(|line| !line.is_empty()) {
         map.push(
             line.chars()
                 .flat_map(|c| match c {
@@ -323,7 +323,6 @@ fn move_robot_scaled(map: &mut [Vec<FieldScaled>], moves: &[Move]) {
                     (robot.0 as isize + row_change) as usize,
                     (robot.1 as isize + col_change) as usize,
                 );
-
             }
             Move::Left | Move::Right => {
                 let mut to_push = Vec::new();
@@ -377,7 +376,10 @@ fn move_robot_scaled(map: &mut [Vec<FieldScaled>], moves: &[Move]) {
     }
 }
 
-fn sum_gps_coordinates<T, BoxChecker: Fn(&T) -> bool>(map: &[Vec<T>], is_box_func: BoxChecker) -> usize {
+fn sum_gps_coordinates<T, BoxChecker: Fn(&T) -> bool>(
+    map: &[Vec<T>],
+    is_box_func: BoxChecker,
+) -> usize {
     map.iter()
         .enumerate()
         .map(|(row_no, row)| {
