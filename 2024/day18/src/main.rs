@@ -56,7 +56,9 @@ fn find_path(bytes: &[(usize, usize)], count: usize, width: usize, height: usize
     queue.push(Reverse((0, 0, 0, 0)));
 
     while let Some(Reverse((_, row, col, step))) = queue.pop() {
-        if let Field::Visited(value) = grid[row][col] && value < step {
+        if let Field::Visited(value) = grid[row][col]
+            && value < step
+        {
             continue;
         }
 
@@ -64,7 +66,8 @@ fn find_path(bytes: &[(usize, usize)], count: usize, width: usize, height: usize
 
         for (next_row, next_col) in moves(row, col, height + 1, width + 1) {
             let next_field = &grid[next_row][next_col];
-            if matches!(next_field, Field::Empty) || matches!(next_field, Field::Visited(value) if *value > step + 1)
+            if matches!(next_field, Field::Empty)
+                || matches!(next_field, Field::Visited(value) if *value > step + 1)
             {
                 let distance_to_target = ((height as isize - row as isize).pow(2)
                     + (width as isize - col as isize).pow(2))
