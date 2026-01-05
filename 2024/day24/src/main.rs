@@ -101,12 +101,7 @@ fn parse_input(input: &str) -> (HashMap<&str, u8>, Vec<Op<'_>>) {
         let (right, rest) = rest.split_once(" ").unwrap();
         let write_to = rest.strip_prefix("-> ").unwrap();
 
-        writes.push((
-            gate.parse().unwrap(),
-            left,
-            right,
-            write_to,
-        ));
+        writes.push((gate.parse().unwrap(), left, right, write_to));
     }
     (addresses, writes)
 }
@@ -129,7 +124,7 @@ fn run_ops<'a>(addresses: &mut HashMap<&'a str, u8>, ops: &'a [Op]) -> usize {
     let mut zs: Vec<(&str, &u8)> = addresses
         .iter()
         .filter(|(address, _)| address.starts_with("z"))
-        .map(|(a, b)|(*a, b))
+        .map(|(a, b)| (*a, b))
         .collect();
     zs.sort_by(|a, b| b.cmp(a));
     let binary: Vec<u8> = zs.iter().map(|(_, bit)| **bit).collect();
