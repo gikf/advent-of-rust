@@ -35,7 +35,10 @@ fn main() {
 
     let part2 = std::time::Instant::now();
     println!("Part 2");
-    println!("Simultaneous steps to be only on nodes ending with Z: {:?}", simultaneous_steps_to(&instructions, &nodes, "Z"));
+    println!(
+        "Simultaneous steps to be only on nodes ending with Z: {:?}",
+        simultaneous_steps_to(&instructions, &nodes, "Z")
+    );
     println!("In {:?}", part2.elapsed());
 }
 
@@ -81,11 +84,12 @@ fn simultaneous_steps_to(
 ) -> usize {
     let mut cur_nodes: Vec<(usize, &str)> = nodes
         .keys()
-        .filter(|name| name.ends_with("A")).enumerate()
+        .filter(|name| name.ends_with("A"))
+        .enumerate()
         .map(|(id, name)| (id, *name))
         .collect();
     let number_of_paths = cur_nodes.len();
-    let mut z_found: Vec<Vec<usize>> = vec![vec![];cur_nodes.len()];
+    let mut z_found: Vec<Vec<usize>> = vec![vec![]; cur_nodes.len()];
 
     for (index, instruction) in instructions.iter().cycle().enumerate() {
         let mut next_nodes = Vec::with_capacity(number_of_paths);
@@ -108,7 +112,11 @@ fn simultaneous_steps_to(
         cur_nodes = next_nodes;
     }
 
-    let steps: usize = z_found.iter().map(|z_indices|z_indices[1] - z_indices[0]).reduce(lcm).unwrap();
+    let steps: usize = z_found
+        .iter()
+        .map(|z_indices| z_indices[1] - z_indices[0])
+        .reduce(lcm)
+        .unwrap();
     steps
 }
 
@@ -206,6 +214,9 @@ XXX = (XXX, XXX)";
         let target_ending = "Z";
 
         let (instructions, nodes) = parse_input(SAMPLE3);
-        assert_eq!(simultaneous_steps_to(&instructions, &nodes, target_ending), 6);
+        assert_eq!(
+            simultaneous_steps_to(&instructions, &nodes, target_ending),
+            6
+        );
     }
 }
