@@ -1,5 +1,5 @@
-use std::path::Path;
 use std::fs;
+use std::path::Path;
 
 const PART1_Y: isize = 2_000_000;
 const PART2_MIN: isize = 0;
@@ -107,11 +107,7 @@ fn positions_not_beacon_at(sensors: &[SensorWithBeacon], target_y: isize) -> usi
         .sum()
 }
 
-fn tuning_frequency(
-    sensors: &[SensorWithBeacon],
-    min: isize,
-    max: isize,
-) -> isize {
+fn tuning_frequency(sensors: &[SensorWithBeacon], min: isize, max: isize) -> isize {
     let mut non_beacon_ranges: Vec<Vec<(isize, isize)>> =
         vec![vec![(min, max)]; (max as usize) + 1];
 
@@ -147,9 +143,7 @@ fn tuning_frequency(
             to_add.clear();
             to_remove.clear();
 
-            for (maybe_beacon_start, maybe_beacon_end) in
-                non_beacon_ranges[row_no].iter_mut()
-            {
+            for (maybe_beacon_start, maybe_beacon_end) in non_beacon_ranges[row_no].iter_mut() {
                 let nb_start_le_mb_start = not_beacon_start <= *maybe_beacon_start;
                 let nb_start_g_mb_start = not_beacon_start > *maybe_beacon_start;
                 let nb_start_l_mb_end = not_beacon_start < *maybe_beacon_end;
@@ -179,7 +173,7 @@ fn tuning_frequency(
             }
             if !to_remove.is_empty() {
                 non_beacon_ranges[row_no]
-                    .retain(|(start, end)|! to_remove.contains(&(*start, *end)));
+                    .retain(|(start, end)| !to_remove.contains(&(*start, *end)));
             }
         }
     }
@@ -195,7 +189,8 @@ fn tuning_frequency(
             } else {
                 None
             }
-        }).unwrap();
+        })
+        .unwrap();
     cols[0].0 * 4_000_000 + (row as isize)
 }
 #[cfg(test)]
