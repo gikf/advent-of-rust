@@ -39,6 +39,10 @@ name = "year2021day08"
 version = "0.1.0"
 
 [[package]]
+name = "year2021day09"
+version = "0.1.0"
+
+[[package]]
 name = "year2022day01"
 version = "0.1.0"
 
