@@ -59,13 +59,19 @@ fn parse_connections(input: &str) -> HashMap<u16, HashSet<u16>> {
 fn separate_groups(connections: &HashMap<u16, HashSet<u16>>) -> usize {
     // Based on https://old.reddit.com/r/adventofcode/comments/18qbsxs/2023_day_25_solutions/ketzp94/
 
-
     let mut group = HashSet::new();
     for key in connections.keys() {
         group.insert(*key);
     }
 
-    let count = |k: u16, set: &HashSet<u16>| connections.get(&k).unwrap().iter().filter(|n|!set.contains(*n)).count();
+    let count = |k: u16, set: &HashSet<u16>| {
+        connections
+            .get(&k)
+            .unwrap()
+            .iter()
+            .filter(|n| !set.contains(*n))
+            .count()
+    };
 
     while group.iter().map(|v| count(*v, &group)).sum::<usize>() != 3 {
         if let Some(max) = group.iter().max_by_key(|v| count(**v, &group)) {
